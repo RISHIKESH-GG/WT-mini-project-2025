@@ -1,0 +1,49 @@
+Step 1:
+
+CREATE SCHEMA IF NOT EXISTS `review_hub_db`;
+
+
+USE `review_hub_db`;
+
+
+DROP TABLE IF EXISTS `reviews`;
+
+CREATE TABLE `reviews` (
+  `review_id` INT NOT NULL AUTO_INCREMENT,
+  `reviewer_name` VARCHAR(50) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `item_type` ENUM('Movie', 'Book', 'Series') NOT NULL,
+  `poster_url` VARCHAR(255) NULL,
+  `rating` INT NOT NULL DEFAULT 0,
+  `review_text` TEXT NULL,
+  `rated_by_users` JSON NULL, 
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`review_id`)
+) ENGINE = InnoDB;
+
+
+INSERT INTO `reviews` (`reviewer_name`, `title`, `item_type`, `poster_url`, `rating`, `rated_by_users`) VALUES
+('Admin', 'Stranger Things', 'Series', 'images/ST.png', 0, '{}'),
+('Admin', 'DemonSlayer', 'Series', 'images/DS.png', 0, '{}'),
+('Admin', 'Squid Games', 'Series', 'images/SG.png', 0, '{}'),
+('Admin', 'Narcos', 'Series', 'images/N.png', 0, '{}'),
+('Admin', 'Wednesday', 'Series', 'images/W.png', 0, '{}');
+
+Step 2:
+
+USE `review_hub_db`;
+
+
+TRUNCATE TABLE `reviews`;
+
+
+INSERT INTO `reviews` (`reviewer_name`, `title`, `item_type`, `poster_url`, `rating`) VALUES
+('Admin', 'Stranger Things', 'Movie', 'images/ST.png', 0),
+('Admin', 'DemonSlayer', 'Movie', 'images/DS.png', 0),
+('Admin', 'Squid Games', 'Movie', 'images/SG.png', 0),
+('Admin', 'Narcos', 'Movie', 'images/N.png', 0),
+('Admin', 'Wednesday', 'Movie', 'images/W.png', 0);
+
+on new sheet:
+
+SELECT * FROM reviews;
